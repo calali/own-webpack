@@ -1,6 +1,8 @@
 const fs = require('fs')
+const path = require('path')
 const babelParser = require('@babel/parser')
 const babelTraverse = require('@babel/traverse').default
+const babel = require('babel-core')
 
 let ID = 0
 
@@ -19,22 +21,51 @@ function createAsset(filename) {
         }
     })
 
+    const {code} = babel.transformFromAst(ast, null, {
+        presets: ['env'],
+    });
+
     
 
     return {
         id:ID++,
         filename,
-        dependencies
+        dependencies,
+        code
     }
 
 }
 
 function createGraph(entry) {
     const mainAsset =createAsset(entry)
-    return mainAsset
+
+    const queue = [mainAsset]
+
+    for (const asset of queue) {
+        const dirname = path.dirname(asset.filename)
+
+        asset.mapping = {}
+
+        asset.dependencies.forEach(relativePath=>{
+            const absolutePath = path.join(dirname,relativePath)
+
+            const child = createAsset(absolutePath)
+
+            asset.mapping[relativePath] = child.id
+
+            queue.push(child)
+        })
+    }
+
+    return queue
 }
 
+function bundler(params) {
+    
+}
 
 const graph = createGraph('./example/entry.js')
 
-console.log(graph);
+const result = bundler(graph)
+
+console.log(result);

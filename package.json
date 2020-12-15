@@ -1,0 +1,31 @@
+{
+  "name": "own-webpack",
+  "version": "1.0.0",
+  "description": "Bundlers let us write modules that works in a browser.",
+  "main": "bundler.js",
+  "directories": {
+    "example": "example"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.12.10",
+    "@babel/preset-env": "^7.12.10",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-traverse": "^6.26.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calali/own-webpack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/calali/own-webpack/issues"
+  },
+  "homepage": "https://github.com/calali/own-webpack#readme"
+}
